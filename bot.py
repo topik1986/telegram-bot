@@ -2,6 +2,17 @@ from telegram import Update
 from telegram.ext import Application, MessageHandler, CommandHandler, filters, ContextTypes
 import aiohttp
 
+web_app = Flask(__name__)
+
+@web_app.route("/")
+
+def home():
+
+    return "Bot is running"
+
+def run_web():
+
+    web_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
 user_modes = {}
 TOKEN =
 
@@ -92,4 +103,5 @@ app.add_handler(MessageHandler(filters.TEXT, message))
 
 print("Бот работает")
 
+threading.Thread(target=run_web).start()
 app.run_polling()
