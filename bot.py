@@ -1,6 +1,8 @@
 from telegram import Update
 from telegram.ext import Application, MessageHandler, CommandHandler, filters, ContextTypes
 import aiohttp
+from flask import Flask
+import threading
 
 web_app = Flask(__name__)
 
