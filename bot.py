@@ -16,10 +16,7 @@ def run_web():
 
     web_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
 user_modes = {}
-TOKEN =
 
-CF_ACCOUNT_ID =
-CF_TOKEN =
 
 
 
