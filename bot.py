@@ -5,7 +5,7 @@ import aiohttp
 from flask import Flask
 import threading
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 web_app = Flask(__name__)
 
