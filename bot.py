@@ -4,6 +4,8 @@ import aiohttp
 from flask import Flask
 import threading
 
+TOKEN = os.getenv("TOKEN")
+
 web_app = Flask(__name__)
 
 @web_app.route("/")
