@@ -91,7 +91,7 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     answer = result["result"]["response"]
 
-    update.massage.reply_text(answer)
+    update.message.reply_text(answer)
 
 
 
@@ -100,7 +100,7 @@ app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("normal", normal))
 app.add_handler(CommandHandler("fun", fun))
-app.add_handler(MessageHandler(filters.TEXT, message))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message))
 
 
 print("Бот работает")
