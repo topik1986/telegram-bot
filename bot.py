@@ -6,6 +6,12 @@ from flask import Flask
 import threading
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
+import os
+import aiohttp
+
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+CF_ACCOUNT_ID = os.getenv("CF_ACCOUNT_ID")
+CF_TOKEN = os.getenv("CF_TOKEN")
 
 web_app = Flask(__name__)
 
