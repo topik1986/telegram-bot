@@ -98,14 +98,13 @@ async with aiohttp.ClientSession() as session:
         result = await r.json()
         print("ОТВЕТ CLOUDFLARE:", result)
         
-
-    if result.get("result") and "response" in result["result"]:
-        answer = result["result"]["response"]
-    else:
-        print("Ошибка Cloudflare:", result)
-        answer = "Ошибка связи с AI 🤖"
-
-    await update.message.reply_text(answer)
+ if result.get("result") and "response" in result["result"]:
+     answer = result["result"]["response"]
+else:
+     print("Ошибка Cloudflare:", result)
+     answer = "Ошибка связи с AI 🤖"
+        
+await update.message.reply_text(answer)
 
 
 
