@@ -5,9 +5,7 @@ import aiohttp
 from flask import Flask
 import threading
 
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-import os
-import aiohttp
+
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CF_ACCOUNT_ID = os.getenv("CF_ACCOUNT_ID")
