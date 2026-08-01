@@ -23,7 +23,7 @@ def run_web():
 
     web_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
 user_modes = {}
-
+user_memory = {}
 
 
 
@@ -38,7 +38,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user_text = update.message.text
-
+    user_id = update.effective_user.id
     mode = user_modes.get(update.effective_user.id, "normal")
 
 creator_text = """
@@ -209,19 +209,27 @@ async def fun(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Authorization": f"Bearer {CF_TOKEN}",
         "Content-Type": "application/json"
     }
+     if user_id not in user_memory:
+         user_memory[user_id] = []
 
+     user_memory[user_id].append(
+         {
+             "role": "user",
+             "content": user_text
+         }
+     )
+
+
+    # оставляем только последние 10 сообщений
+    user_memory[user_id] = user_memory[user_id][-10:]
     data = {
-        "messages": [
-            {
-                "role": "system",
-                "content": system_text
-            },
-            {
-                "role": "user",
-                "content": user_text
-            }
-        ]
-    }
+    "messages": [
+        {
+            "role": "system",
+            "content": system_text
+        }
+    ] + user_memory[user_id]
+}
           
     print("ОТПРАВЛЯЮ В CLOUDFLARE")
     print("ACCOUNT:", CF_ACCOUNT_ID)
@@ -237,7 +245,12 @@ async def fun(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         print("Ошибка Cloudflare:", result)
         answer = "Ошибка связи с AI 🤖"
-
+    user_memory[user_id].append(
+        {
+            "role": "assistant",
+            "content": answer
+        }
+    )
     await update.message.reply_text(answer)
 
 
