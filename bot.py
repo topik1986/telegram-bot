@@ -88,24 +88,23 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             }
         ]
     }
+          
+    print("ОТПРАВЛЯЮ В CLOUDFLARE")
+    print("ACCOUNT:", CF_ACCOUNT_ID)
+    print("TOKEN ЕСТЬ:", bool(CF_TOKEN))
 
-print("ОТПРАВЛЯЮ В CLOUDFLARE")
-print("ACCOUNT:", CF_ACCOUNT_ID)
-print("TOKEN ЕСТЬ:", bool(CF_TOKEN))
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, json=data) as r:
+            result = await r.json()
+            print("ОТВЕТ CLOUDFLARE:", result)
 
-async with aiohttp.ClientSession() as session:
-    async with session.post(url, headers=headers, json=data) as r:
-        result = await r.json()
-        print("ОТВЕТ CLOUDFLARE:", result)
-        
- if result.get("result") and "response" in result["result"]:
-     answer = result["result"]["response"]
-else:
-     print("Ошибка Cloudflare:", result)
-     answer = "Ошибка связи с AI 🤖"
-        
-await update.message.reply_text(answer)
+    if result.get("result") and result["result"].get("response"):
+        answer = result["result"]["response"]
+    else:
+        print("Ошибка Cloudflare:", result)
+        answer = "Ошибка связи с AI 🤖"
 
+    await update.message.reply_text(answer)
 
 
 app = Application.builder().token(TOKEN).build()
