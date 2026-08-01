@@ -89,7 +89,7 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     }
 
-    print("ОТПРАВЛЯЮ В CLOUDFLARE")
+print("ОТПРАВЛЯЮ В CLOUDFLARE")
 print("ACCOUNT:", CF_ACCOUNT_ID)
 print("TOKEN ЕСТЬ:", bool(CF_TOKEN))
 
@@ -97,9 +97,7 @@ async with aiohttp.ClientSession() as session:
     async with session.post(url, headers=headers, json=data) as r:
         result = await r.json()
         print("ОТВЕТ CLOUDFLARE:", result)
-        async with session.post(url, headers=headers, json=data) as r:
-            result = await r.json()
-            print(result)
+        
 
     if result.get("result") and "response" in result["result"]:
         answer = result["result"]["response"]
