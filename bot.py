@@ -94,7 +94,11 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             result = await r.json()
             print(result)
 
-    answer = result["result"]["response"]
+    if result.get("result") and "response" in result["result"]:
+        answer = result["result"]["response"]
+    else:
+        print("Ошибка Cloudflare:", result)
+        answer = "Ошибка связи с AI 🤖"
 
     await update.message.reply_text(answer)
 
