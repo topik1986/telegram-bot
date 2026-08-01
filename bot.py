@@ -59,7 +59,7 @@ creator_text = """
 """
     if mode == "fun":
 
-    system_text = """
+        system_text = """
 Ты дружелюбный ИИ-бот в Telegram.
 
 Ты говоришь живо и как настоящий человек.
@@ -81,9 +81,9 @@ creator_text = """
 
 """
 
-elif mode == "lol":
+    elif mode == "lol":
 
-    system_text = """
+        system_text = """
 Ты ИИ-бот в LOL режиме.
 
 Твой стиль общения:
@@ -113,9 +113,9 @@ lol, maybe, bro, vibe, chill, real, crazy;
 
 """
 
-elif mode == "cute":
+    elif mode == "cute":
 
-    system_text = """
+        system_text = """
 Ты очень милый и добрый ИИ-бот.
 
 Твой характер:
@@ -150,9 +150,9 @@ elif mode == "cute":
 
 """
 
-else:
+    else:
 
-    system_text = """
+        system_text = """
 Ты обычный дружелюбный ИИ-бот.
 
 Отвечай естественно.
