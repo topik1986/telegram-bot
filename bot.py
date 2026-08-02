@@ -326,19 +326,18 @@ real
                 print(result)
 
         if result.get("success") and result.get("result"):
-
             answer = result["result"]["response"]
-                text = user_text.lower()
+            text = user_text.lower()
 
-        if "меня зовут" in text:
-            name = text.split("меня зовут", 1)[1].strip()
-            profile["Имя"] = name
+            if "меня зовут" in text:
+                name = text.split("меня зовут", 1)[1].strip()
+                profile["Имя"] = name
 
-        if "люблю" in text:
-            profile["Любит"] = text.split("люблю", 1)[1].strip()
+            if "люблю" in text:
+                profile["Любит"] = text.split("люблю", 1)[1].strip()
 
-        if "мой любимый" in text:
-            profile["Любимое"] = text.split("мой любимый", 1)[1].strip()
+            if "мой любимый" in text:
+                profile["Любимое"] = text.split("мой любимый", 1)[1].strip()
 
             user_profile[user_id] = profile
     
