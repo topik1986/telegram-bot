@@ -28,7 +28,7 @@ user_modes = {}
 
 # память сообщений
 user_memory = {}
-
+user_profile = {}
 
 # Flask для Render
 web_app = Flask(__name__)
@@ -144,6 +144,7 @@ async def cute(
 async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user_text = update.message.text
+    profile = user_profile.get(user_id, {})
     user_id = update.effective_user.id
     mode = user_modes.get(user_id, "normal")
     print("ТЕКУЩИЙ РЕЖИМ:", mode)
@@ -286,11 +287,19 @@ real
 
     user_memory[user_id] = user_memory[user_id][-10:]
 
+    profile_text = ""
+
+    if profile:
+        profile_text = (
+            "Вот что ты уже знаешь о пользователе:\n"
+            f"{profile}\n\n"
+        )
+    
     data = {
         "messages": [
             {
                 "role": "system",
-                "content": system_text
+                "content": system_text + "\n\n" + profile_text
             }
         ] + user_memory[user_id]
     }
@@ -319,7 +328,20 @@ real
         if result.get("success") and result.get("result"):
 
             answer = result["result"]["response"]
+                text = user_text.lower()
 
+        if "меня зовут" in text:
+            name = text.split("меня зовут", 1)[1].strip()
+            profile["Имя"] = name
+
+        if "люблю" in text:
+            profile["Любит"] = text.split("люблю", 1)[1].strip()
+
+        if "мой любимый" in text:
+            profile["Любимое"] = text.split("мой любимый", 1)[1].strip()
+
+            user_profile[user_id] = profile
+    
         else:
 
             print("Ошибка Cloudflare:", result)
