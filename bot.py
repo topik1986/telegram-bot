@@ -144,10 +144,11 @@ async def cute(
 async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user_text = update.message.text
-    profile = user_profile.get(user_id, {})
     user_id = update.effective_user.id
     mode = user_modes.get(user_id, "normal")
     print("ТЕКУЩИЙ РЕЖИМ:", mode)
+
+    profile = user_profile.get(user_id, {})
   
     if user_id not in user_memory:
         user_memory[user_id] = []
